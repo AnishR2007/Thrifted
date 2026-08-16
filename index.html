@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIBE - Premium Streetwear</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --dark-bg: #131313;
+      --dark-secondary: #0e0e0e;
+      --text-primary: #e2e2e2;
+      --text-secondary: #cfc4c5;
+      --text-muted: #474747;
+      --accent: #ff5c00;
+      --border-light: rgba(255, 255, 255, 0.05);
+      --border-lighter: rgba(255, 255, 255, 0.1);
+      --border-lightest: rgba(255, 255, 255, 0.2);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+      background: var(--dark-bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── TOP NAV BAR ─── */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      backdrop-filter: blur(12px);
+      background: rgba(19, 19, 19, 0.8);
+      border-bottom: 1px solid var(--border-lighter);
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 64px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -1.6px;
+      color: var(--text-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+      padding-bottom: 6px;
+    }
+
+    .nav-links a.active {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .nav-icon-btn {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+
+    .nav-icon-btn:hover {
+      color: var(--accent);
+    }
+
+    .cart-badge {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      top: -4px;
+      right: -4px;
+    }
+
+    /* ─── HERO SECTION ─── */
+    .hero {
+      margin-top: 80px;
+      min-height: 800px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      padding: 80px 64px;
+    }
+
+    .hero-content {
+      flex: 0 0 50%;
+      z-index: 2;
+      max-width: 672px;
+    }
+
+    .hero-heading {
+      font-size: 120px;
+      font-weight: 700;
+      letter-spacing: -4.8px;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    .hero-heading .accent {
+      color: var(--accent);
+    }
+
+    .hero-subtext {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      max-width: 448px;
+      line-height: 1.6;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 17.5px 32px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: black;
+    }
+
+    .btn-primary:hover {
+      background: #ff7a1f;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: black;
+      border-color: white;
+    }
+
+    .hero-image {
+      flex: 0 0 50%;
+      position: relative;
+      height: 800px;
+      z-index: 1;
+    }
+
+    .hero-image-wrapper {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-radius: 0;
+    }
+
+    .hero-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-image-gradient {
+      position: absolute;
+      inset: 0 66.67% 0 0;
+      background: linear-gradient(to right, #131313, rgba(19, 19, 19, 0));
+      z-index: 3;
+    }
+
+    .price-tag {
+      position: absolute;
+      bottom: 38px;
+      right: 38px;
+      backdrop-filter: blur(4px);
+      background: rgba(19, 19, 19, 0.9);
+      border: 1px solid var(--border-lightest);
+      border-radius: 8px;
+      padding: 17px;
+      z-index: 5;
+      transform: rotate(-2deg);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    .price-tag-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .price-tag-value {
+      font-size: 32px;
+      font-weight: 600;
+      color: white;
+    }
+
+    /* ─── FORM SECTION ─── */
+    .form-section {
+      background: var(--dark-bg);
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+      padding: 80px 64px;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-heading {
+      font-size: 48px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .form-subtext {
+      font-size: 16px;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-lighter);
+      border-radius: 8px;
+      color: var(--text-primary);
+      transition: all 0.3s;
+    }
+
+    .form-group input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-group input:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.1);
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 18px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: black;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 32px;
+    }
+
+    .form-submit:hover:not(:disabled) {
+      background: #ff7a1f;
+      transform: translateY(-2px);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-message {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 14px;
+      display: none;
+    }
+
+    .form-message.success {
+      display: block;
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .form-message.error {
+      display: block;
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    /* ─── BRAND STATEMENT SECTION ─── */
+    .brand-statement {
+      border-top: 1px solid var(--border-light);
+      padding: 128px 192px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-statement-content {
+      max-width: 896px;
+      text-align: center;
+    }
+
+    .brand-statement-heading {
+      font-size: 48px;
+      font-weight: 600;
+      letter-spacing: 4.8px;
+      text-transform: uppercase;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .brand-statement-heading-primary {
+      color: var(--text-primary);
+      display: block;
+      line-height: 60px;
+    }
+
+    .brand-statement-heading-secondary {
+      color: var(--text-muted);
+      display: block;
+      line-height: 60px;
+    }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      background: var(--dark-secondary);
+      border-top: 1px solid var(--border-light);
+      padding: 65px 64px 65px;
+    }
+
+    .footer-content {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+
+    .footer-column h3 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin-bottom: 15px;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column li {
+      margin-bottom: 15px;
+    }
+
+    .footer-column a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+
+    .footer-column a:hover {
+      color: var(--accent);
+    }
+
+    .footer-brand h4 {
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 15px;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border-light);
+      padding-top: 33px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copyright {
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .footer-social-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+
+    .footer-social-link:hover {
+      color: var(--accent);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .nav-container,
+      .hero,
+      .form-section,
+      .brand-statement,
+      .footer-content {
+        padding-left: 32px;
+        padding-right: 32px;
+      }
+
+      .hero {
+        flex-direction: column;
+        min-height: auto;
+        padding: 60px 32px;
+      }
+
+      .hero-content {
+        flex: 1;
+        max-width: 100%;
+        margin-bottom: 40px;
+      }
+
+      .hero-heading {
+        font-size: 72px;
+      }
+
+      .hero-image {
+        flex: 1;
+        height: 400px;
+      }
+
+      .brand-statement {
+        padding: 64px 32px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-container,
+      .hero,
+      .form-section,
+      .brand-statement,
+      .footer-content {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .nav-container {
+        height: 60px;
+      }
+
+      .brand-logo {
+        font-size: 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        margin-top: 60px;
+        padding: 40px 16px;
+      }
+
+      .hero-heading {
+        font-size: 48px;
+        line-height: 1.2;
+      }
+
+      .hero-image {
+        height: 300px;
+        margin-top: 30px;
+      }
+
+      .button-group {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .form-section {
+        padding: 60px 16px;
+      }
+
+      .form-heading {
+        font-size: 32px;
+      }
+
+      .brand-statement {
+        padding: 60px 16px;
+      }
+
+      .brand-statement-heading {
+        font-size: 28px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAVIGATION -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <div class="brand-logo">VIBE</div>
+      <div class="nav-links">
+        <a href="#" class="active">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">Collections</a>
+        <a href="#">New Arrivals</a>
+        <a href="#">Offers</a>
+      </div>
+      <div class="nav-icons">
+        <button class="nav-icon-btn">🔍</button>
+        <button class="nav-icon-btn">❤️</button>
+        <button class="nav-icon-btn">🛍️</button>
+        <button class="nav-icon-btn" style="position: relative;">
+          🛒
+          <div class="cart-badge"></div>
+        </button>
+        <button class="nav-icon-btn">👤</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-heading">
+        WEAR<br>YOUR<br><span class="accent">ATTITUDE.</span>
+      </h1>
+      <p class="hero-subtext">
+        Premium streetwear designed for everyday confidence. Break the rules, set the vibe.
+      </p>
+      <div class="button-group">
+        <button class="btn btn-primary">Shop Now</button>
+        <button class="btn btn-secondary">Explore</button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-image-wrapper">
+        <img src="https://images.unsplash.com/photo-1552062407-291fa3d39680?w=576&h=800&fit=crop" alt="VIBE Collection">
+      </div>
+      <div class="hero-image-gradient"></div>
+      <div class="price-tag">
+        <div class="price-tag-label">New Drop</div>
+        <div class="price-tag-value">₹699</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM SECTION -->
+  <section class="form-section">
+    <div class="form-container">
+      <h2 class="form-heading">Get Early Access</h2>
+      <p class="form-subtext">Join our community and be the first to know about new drops and exclusive offers.</p>
+      
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" required>
+        </div>
+        
+        <button type="submit" class="form-submit">Submit</button>
+        <div id="formMessage" class="form-message"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- BRAND STATEMENT SECTION -->
+  <section class="brand-statement">
+    <div class="brand-statement-content">
+      <h2 class="brand-statement-heading">
+        <span class="brand-statement-heading-primary">NOT JUST A T-SHIRT.</span>
+        <span class="brand-statement-heading-secondary">IT'S YOUR ATTITUDE.</span>
+      </h2>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <div class="footer-brand">
+            <h4>VIBE</h4>
+            <p>Premium streetwear for the bold.</p>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Shop</h3>
+          <ul>
+            <li><a href="#">All Products</a></li>
+            <li><a href="#">New Arrivals</a></li>
+            <li><a href="#">Size Guide</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Help</h3>
+          <ul>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Returns</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-column"></div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2024 VIBE. Made in India.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-link">📱</a>
+          <a href="#" class="footer-social-link">🐦</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzXF6Mzdw5_THdVlG3Lkn7Sw9AvWh38q2u8PWYTR34jPiirPawCzdJ0xQrIMmzIv4rq/exec';
+    const form = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+    const submitBtn = form.querySelector('.form-submit');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      if (!name || !email || !phone) {
+        showError('Please fill all fields');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      formMessage.textContent = '';
+      formMessage.className = 'form-message';
+
+      // Build URL with query parameters
+      const url = SCRIPT_URL + '?' + new URLSearchParams({
+        name: name,
+        email: email,
+        phone: phone
+      });
+
+      // Fetch with GET and no-cors mode
+      fetch(url, {
+        method: 'GET',
+        mode: 'no-cors'
+      })
+      .then(() => {
+        showSuccess();
+        form.reset();
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+      })
+      .catch(() => {
+        showError('Network error. Please try again.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+      });
+    });
+
+    function showSuccess() {
+      formMessage.textContent = '✓ Thank you! Your submission has been received. Check your email soon.';
+      formMessage.className = 'form-message success';
+    }
+
+    function showError(message) {
+      formMessage.textContent = '✗ ' + message;
+      formMessage.className = 'form-message error';
+    }
+  </script>
+
+</body>
+</html>
